@@ -29,7 +29,7 @@
       <h2>Compra de Tiquetes</h2>
       <p>Revisa el resumen del viaje y completa tus datos.</p>
 
-      <!-- Resumen del viaje (se llena con JS) -->
+      <!-- Resumen del viaje -->
       <div class="ticket-summary">
         <div class="ts-card">
           <h4>Ruta</h4>
@@ -59,7 +59,7 @@
 
     <section class="section buy-form">
       <h3>Datos del pasajero</h3>
-      <form id="buy-form" class="grid-2" action="#ok">
+      <form id="buy-form" class="grid-2" action="../../dataBase/helpers/crear-ticket.php" method="POST">
         <label>Nombre completo
           <input type="text" id="bf-nombre" required />
         </label>
