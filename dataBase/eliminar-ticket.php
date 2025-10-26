@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/asientos_funciones.php";
+require __DIR__ . "/asientos.php";
 $id = (int)($_GET["id"] ?? 0);
 if ($id > 0) {
   // obtener datos para liberar
@@ -16,4 +16,4 @@ if ($id > 0) {
   $st2 = $cn->prepare("DELETE FROM tickets WHERE id=?");
   $st2->bind_param("i",$id); $st2->execute(); $st2->close();
 }
-header("Location: ../../navigation/gestion/tickets/index .php?del=1");
+header("Location: ../navigation/gestion/tickets/index.php?del=1");

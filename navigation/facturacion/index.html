@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Facturación</title>
   <link rel="stylesheet" href="../../styles/styles.css" />
 </head>
+
 <body>
   <header class="site-header">
     <div class="container header-bar">
@@ -19,6 +21,7 @@
           <li><a href="../vehiculos/">Vehículos</a></li>
           <li><a href="../rutas/">Rutas y Horarios</a></li>
           <li><a href="../compra-tickets/" class="is-active" aria-current="page">Compra de Tiquetes</a></li>
+          <li><a href="../gestion/tickets/">Gestión de Tiquetes</a></li>
         </ul>
       </nav>
     </div>
@@ -59,36 +62,33 @@
 
     <section class="section buy-form">
       <h3>Datos del pasajero</h3>
-      <form id="buy-form" class="grid-2" action="../../dataBase/helpers/crear-ticket.php" method="POST">
+      <form id="buy-form" class="grid-2" action="../../dataBase/crear-ticket.php" method="POST">
         <label>Nombre completo
-          <input type="text" id="bf-nombre" required />
+          <input type="text" id="bf-nombre" name="bf-nombre" required />
         </label>
         <label>Documento de identidad
-          <input type="text" id="bf-doc" required />
+          <input type="text" id="bf-doc" name="bf-doc" required />
         </label>
         <label>Correo electrónico
-          <input type="email" id="bf-email" required />
+          <input type="email" id="bf-email" name="bf-email" required />
         </label>
         <label>Teléfono
-          <input type="tel" id="bf-tel" required />
+          <input type="tel" id="bf-tel" name="bf-tel" required />
         </label>
         <label class="span-2">Método de pago
-          <select id="bf-pago" required>
+          <select id="bf-pago" name="bf-pago" required>
             <option>Tarjeta débito/crédito</option>
             <option>PSE</option>
             <option>Efectivo en taquilla</option>
           </select>
         </label>
-        <label class="span-2">
-          <input type="checkbox" id="bf-tyc" required />
-          Acepto términos y condiciones
-        </label>
 
-        <!-- Campos ocultos con la info de la ruta -->
-        <input type="hidden" id="bf-data" />
+        <!-- payload del viaje -->
+        <input type="hidden" id="bf-data" name="bf_data" />
 
         <button type="submit" class="span-2">Confirmar compra</button>
       </form>
+
 
       <div id="buy-msg" class="note" style="display:none;"></div>
     </section>
@@ -102,4 +102,5 @@
 
   <script src="../../scripts/compra-tickets.js" defer></script>
 </body>
+
 </html>

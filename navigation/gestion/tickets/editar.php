@@ -17,7 +17,7 @@ if (!$t) { die("Ticket no encontrado"); }
 <main class="container" style="padding:24px 0;">
   <section class="section">
     <h2>Editar Ticket #<?php echo $id; ?></h2>
-    <form action="../../../dataBase/helpers/actualizar_ticket.php" method="post" class="grid-2">
+    <form action="../../../dataBase/actualizar-ticket.php" method="post" class="grid-2">
       <input type="hidden" name="id" value="<?php echo $id; ?>"/>
       <label>Fecha <input type="date" name="fecha" value="<?php echo htmlspecialchars($t['fecha']); ?>" required/></label>
       <label>Hora <input name="horario" value="<?php echo htmlspecialchars($t['horario']); ?>" required/></label>

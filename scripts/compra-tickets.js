@@ -1,64 +1,60 @@
-/* Compra de Tiquetes — Precarga desde la URL + simulación de compra */
+/* Compra de Tiquetes — Precarga desde la URL + envío al PHP */
 (() => {
   "use strict";
 
+  // Utilidades básicas para mostrar resumen
   const money = n => "$" + (Math.round(n) || 0).toLocaleString("es-CO");
-  const formatISOtoDMY = iso => { if (!iso) return "—"; const [y, m, d] = iso.split("-"); return `${d}/${m}/${y}`; };
-  const tipoLabel = t => ({ TAXI: "Taxi", AEROVAN: "Aerovan", BUS_1PISO: "Bus (1 piso)", BUS_2PISOS: "Bus (2 pisos)" }[t] || t);
+  const formatISOtoDMY = iso => {
+    if (!iso) return "—";
+    const [y, m, d] = iso.split("-");
+    return `${d}/${m}/${y}`;
+  };
+  const tipoLabel = t => (
+    { TAXI: "Taxi", AEROVAN: "Aerovan", BUS_1PISO: "Bus (1 piso)", BUS_2PISOS: "Bus (2 pisos)" }[t] || t
+  );
 
-  // Leer parámetros
-  const q = new URLSearchParams(location.search);
+  // 1) Leer parámetros de la URL
+  const q = new URLSearchParams(window.location.search);
   const data = {
     empresa: q.get("empresa") || "",
-    tipo: q.get("tipo") || "",
-    origen: q.get("origen") || "",
+    tipo:    q.get("tipo")    || "",
+    origen:  q.get("origen")  || "",
     destino: q.get("destino") || "",
-    fecha: q.get("fecha") || "",
+    fecha:   q.get("fecha")   || "",
     horario: q.get("horario") || "",
-    sillas: (q.get("sillas") || "").split(",").filter(Boolean),
-    costo: Number(q.get("costo") || 0),
-    total: Number(q.get("total") || 0),
+    sillas:  (q.get("sillas") || "").split(",").filter(Boolean),
+    costo:   Number(q.get("costo") || 0),
+    total:   Number(q.get("total") || 0),
   };
   if (!data.total) data.total = data.costo * Math.max(1, data.sillas.length);
 
-  // Pintar resumen
+  // 2) Pintar el resumen en la UI (si existen esos elementos)
   const $ = sel => document.querySelector(sel);
-  $("#ts-ruta").textContent = (data.origen && data.destino) ? `${data.origen} → ${data.destino}` : "—";
-  $("#ts-empresa").textContent = data.empresa || "—";
-  $("#ts-tipo").textContent = data.tipo ? `Tipo: ${tipoLabel(data.tipo)}` : "—";
-  $("#ts-fecha").textContent = data.fecha ? formatISOtoDMY(data.fecha) : "—";
-  $("#ts-hora").textContent = data.horario || "—";
-  $("#ts-sillas").textContent = data.sillas.length ? data.sillas.join(", ") : "—";
-  $("#ts-costo").textContent = money(data.costo || 0);
-  $("#ts-total").textContent = money(data.total || 0);
+  const setText = (sel, txt) => { const el = $(sel); if (el) el.textContent = txt; };
 
-  // Guardar payload en un hidden (útil si luego se envía al backend)
+  setText("#ts-ruta",     (data.origen && data.destino) ? `${data.origen} → ${data.destino}` : "—");
+  setText("#ts-empresa",  data.empresa || "—");
+  setText("#ts-tipo",     data.tipo ? `Tipo: ${tipoLabel(data.tipo)}` : "—");
+  setText("#ts-fecha",    data.fecha ? formatISOtoDMY(data.fecha) : "—");
+  setText("#ts-hora",     data.horario || "—");
+  setText("#ts-sillas",   data.sillas.length ? data.sillas.join(", ") : "—");
+  setText("#ts-costo",    money(data.costo || 0));
+  setText("#ts-total",    money(data.total || 0));
+
+  // 3) Pasar el payload completo al hidden que consume PHP
   const hidden = document.getElementById("bf-data");
-  hidden.value = JSON.stringify(data);
+  if (hidden) hidden.value = JSON.stringify(data);
 
-  // Compra de tickets
+  // 4) Envío del formulario (SIN preventDefault). Solo evitamos doble clic.
   const form = document.getElementById("buy-form");
-  const msg = document.getElementById("buy-msg");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const nombre = document.getElementById("bf-nombre").value.trim();
-    const doc = document.getElementById("bf-doc").value.trim();
-    const email = document.getElementById("bf-email").value.trim();
-    const tel = document.getElementById("bf-tel").value.trim();
-    const pago = document.getElementById("bf-pago").value;
-
-    const codigo = "RES-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-    msg.style.display = "block";
-    msg.innerHTML = `
-      <strong>¡Compra realizada con éxtio!</strong><br/>
-      Código de reserva: <strong>${codigo}</strong><br/>
-      Pasajero: <strong>${nombre}</strong> — Doc: <strong>${doc}</strong><br/>
-      Ruta: <strong>${data.origen} → ${data.destino}</strong> | ${formatISOtoDMY(data.fecha)} ${data.horario}<br/>
-      Sillas: <strong>${data.sillas.length ? data.sillas.join(", ") : "Asiento general"}</strong><br/>
-      Total pagado: <strong>${money(data.total)}</strong><br/>
-      Medio de pago: <strong>${pago}</strong>
-    `;
-    // Desactivar botón
-    form.querySelector("button[type=submit]").disabled = true;
-  });
+  if (form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    form.addEventListener("submit", () => {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Procesando...";
+      }
+      // importante: no usamos preventDefault; el form se va al PHP (crear-ticket.php)
+    });
+  }
 })();
