@@ -2,7 +2,7 @@
 require __DIR__ . "/asientos.php";
 $id = (int)($_GET["id"] ?? 0);
 if ($id > 0) {
-  // obtener datos para liberar
+  // obtener datos 
   $st = $cn->prepare("SELECT ruta_id, fecha, horario, sillas FROM tickets WHERE id=?");
   $st->bind_param("i",$id); $st->execute();
   $st->bind_result($ruta_id, $fecha, $horario, $sillasStr);

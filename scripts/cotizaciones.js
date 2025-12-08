@@ -1,13 +1,10 @@
 /* Cotizaciones — Búsqueda + Disponibilidad de sillas por ruta
-   - Botón "Ver sillas" por resultado
-   - Mapas por tipo: TAXI(2x2), AEROVAN(3x4), BUS_1PISO(10x4), BUS_2PISOS(8x4 x 2)
-   - Verde: libre | Rojo: ocupada | Azul: seleccionada
-   - "Continuar con la compra" → redirige a Compra de Tiquetes con la selección
+
 */
 (() => {
   "use strict";
 
-  /* ========= Datos base (cada ruta con su TIPO) ========= */
+  /* Datos base  */
   const RUTAS = [
     { empresa: "Transportico SAS", tipo: "TAXI", origen: "Marinilla", destino: "Medellín", horario: "04:00 am", costo: 100000 },
     { empresa: "Transportico SAS", tipo: "AEROVAN", origen: "Marinilla", destino: "Medellín", horario: "05:00 am", costo: 100000 },

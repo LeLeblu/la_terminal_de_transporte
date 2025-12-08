@@ -2,15 +2,31 @@
 require __DIR__ . "/../../../dataBase/conexion.php";
 $id = intval($_GET["id"] ?? 0);
 $st = $cn->prepare("SELECT * FROM tickets WHERE id=?");
-$st->bind_param("i", $id); $st->execute();
-$t = $st->get_result()->fetch_assoc(); $st->close();
+$st->bind_param("i", $id); 
+$st->execute();
+$t = $st->get_result()->fetch_assoc(); 
+$st->close();
 if (!$t) { die("Ticket no encontrado"); }
 ?>
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8"/>
-  <title>Editar Ticket #<?php echo $id; ?></title>
+
+  <!-- Mejora de usabilidad móvil (no es SEO directo, pero ayuda a la experiencia):
+       hace que la página se vea bien en pantallas pequeñas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO: título descriptivo con palabras clave de gestión/edición de tiquetes -->
+  <title>Editar Ticket #<?php echo $id; ?> | Gestión de Tiquetes - La Terminal</title>
+
+  <!-- SEO: meta descripción que explica claramente qué se hace en esta página.
+       Aunque sea una sección interna, mantiene la misma estrategia en todo el sitio. -->
+  <meta
+    name="description"
+    content="Editar la información del ticket #<?php echo $id; ?> en el módulo de gestión de tiquetes de La Terminal: fecha, hora, sillas, valor y datos del cliente."
+  />
+
   <link rel="stylesheet" href="../../../styles/styles.css"/>
 </head>
 <body>
@@ -35,3 +51,4 @@ if (!$t) { die("Ticket no encontrado"); }
 </main>
 </body>
 </html>
+

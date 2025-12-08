@@ -4,7 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Facturación</title>
+
+  <!-- SEO: título descriptivo para la página de facturación/confirmación -->
+  <title>Facturación y Datos del Pasajero | La Terminal - Compra de Tiquetes</title>
+
+  <!-- SEO: meta descripción que resume claramente el propósito de esta página:
+       revisar el resumen del viaje y completar los datos para confirmar la compra. -->
+  <meta
+    name="description"
+    content="Revisa el resumen de tu viaje y completa los datos del pasajero para confirmar la compra de tiquetes en La Terminal. Elige método de pago y finaliza tu reserva."
+  />
+
   <link rel="stylesheet" href="../../styles/styles.css" />
 </head>
 
@@ -20,7 +30,11 @@
           <li><a href="../empresas/">Empresas</a></li>
           <li><a href="../vehiculos/">Vehículos</a></li>
           <li><a href="../rutas/">Rutas y Horarios</a></li>
+
+          <!-- Esta página es parte del flujo de compra, por eso se mantiene
+               "Compra de Tiquetes" como la sección activa en el menú -->
           <li><a href="../compra-tickets/" class="is-active" aria-current="page">Compra de Tiquetes</a></li>
+
           <li><a href="../gestion/tickets/">Gestión de Tiquetes</a></li>
         </ul>
       </nav>
@@ -83,12 +97,11 @@
           </select>
         </label>
 
-        <!-- payload del viaje -->
+        <!-- info del viaje -->
         <input type="hidden" id="bf-data" name="bf_data" />
 
         <button type="submit" class="span-2">Confirmar compra</button>
       </form>
-
 
       <div id="buy-msg" class="note" style="display:none;"></div>
     </section>

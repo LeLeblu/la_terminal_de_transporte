@@ -5,9 +5,6 @@ require __DIR__ . "/conexion.php";
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-/* ========= Helpers de plantillas y asientos ========= */
-
-/** Devuelve [ [piso, filas, columnas], ... ] para un tipo de vehículo. */
 function obtenerPlantillasPorTipo(mysqli $cn, string $tipo): array {
   $st = $cn->prepare("SELECT piso, filas, columnas FROM plantillas_asientos WHERE tipo_vehiculo=? ORDER BY piso");
   $st->bind_param("s", $tipo);
@@ -22,7 +19,7 @@ function obtenerPlantillasPorTipo(mysqli $cn, string $tipo): array {
 }
 
 
-/** Crea los asientos de (ruta_id, fecha, horario) si no existen aún. */
+/** Crea los asientos si no existen aun */
 function inicializarAsientosSiNoExisten(mysqli $cn, int $ruta_id, string $fecha, string $horario, string $tipo): void {
   // ¿ya existe malla?
   $st = $cn->prepare("SELECT COUNT(*) FROM asientos_viaje WHERE ruta_id=? AND fecha=? AND horario=?");
@@ -44,7 +41,6 @@ function inicializarAsientosSiNoExisten(mysqli $cn, int $ruta_id, string $fecha,
   }
 }
 
-/** Intenta ocupar todos los asientos; devuelve true si pudo ocupar todos. */
 function ocuparAsientos(mysqli $cn, int $ruta_id, string $fecha, string $horario, array $asientos): bool {
   foreach ($asientos as $seat) {
     $piso = 1; $num = 0;
@@ -57,13 +53,13 @@ function ocuparAsientos(mysqli $cn, int $ruta_id, string $fecha, string $horario
                         WHERE ruta_id=? AND fecha=? AND horario=? AND piso=? AND asiento_numero=? AND estado='DISPONIBLE'");
     $st->bind_param("issii", $ruta_id, $fecha, $horario, $piso, $num);
     $st->execute();
-    if ($st->affected_rows === 0) { $st->close(); return false; } // ya estaba ocupado
+    if ($st->affected_rows === 0) { $st->close(); return false; } 
     $st->close();
   }
   return true;
 }
 
-/** Libera asientos (por si eliminas tickets). */
+/** Libera asientos */
 function liberarAsientos(mysqli $cn, int $ruta_id, string $fecha, string $horario, array $asientos): void {
   foreach ($asientos as $seat) {
     $piso = 1; $num = 0;

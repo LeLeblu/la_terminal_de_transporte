@@ -2,7 +2,7 @@
 CREATE DATABASE IF NOT EXISTS terminal CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE terminal;
 
--- ========== EMPRESAS ==========
+-- ========== Empresas ==========
 DROP TABLE IF EXISTS empresas;
 CREATE TABLE empresas (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -16,7 +16,7 @@ CREATE TABLE empresas (
   creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- ========== VEHÍCULOS  ==========
+-- ========== Vehiculos]  ==========
 DROP TABLE IF EXISTS vehiculos;
 CREATE TABLE vehiculos (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +28,7 @@ CREATE TABLE vehiculos (
   FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE
 );
 
--- ========== RUTAS ==========
+-- ========== Rutas ==========
 DROP TABLE IF EXISTS rutas;
 CREATE TABLE rutas (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -42,7 +42,7 @@ CREATE TABLE rutas (
   FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE
 );
 
--- ========== PLANTILLAS DE ASIENTOS (distribución por tipo/piso) ==========
+-- ========== Asientos ==========
 DROP TABLE IF EXISTS plantillas_asientos;
 CREATE TABLE plantillas_asientos (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -53,7 +53,7 @@ CREATE TABLE plantillas_asientos (
   UNIQUE KEY uniq_tipo_piso (tipo_vehiculo, piso)
 );
 
--- Cargas base (coinciden con tu JS)
+
 INSERT INTO plantillas_asientos (tipo_vehiculo, piso, filas, columnas) VALUES
 ('TAXI',1,2,2),
 ('AEROVAN',1,4,3),
@@ -61,7 +61,7 @@ INSERT INTO plantillas_asientos (tipo_vehiculo, piso, filas, columnas) VALUES
 ('BUS_2PISOS',1,8,4),
 ('BUS_2PISOS',2,8,4);
 
--- ========== ASIENTOS POR VIAJE (estado por fecha+hora) ==========
+-- ========== Asientos por viaje ==========
 DROP TABLE IF EXISTS asientos_viaje;
 CREATE TABLE asientos_viaje (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -76,7 +76,7 @@ CREATE TABLE asientos_viaje (
   FOREIGN KEY (ruta_id) REFERENCES rutas(id) ON DELETE CASCADE
 );
 
--- ========== TICKETS ==========
+-- ========== Tickets ==========
 DROP TABLE IF EXISTS tickets;
 CREATE TABLE tickets (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -102,7 +102,6 @@ CREATE TABLE tickets (
   FOREIGN KEY (ruta_id) REFERENCES rutas(id) ON DELETE SET NULL
 );
 
--- ================== DATOS DE EJEMPLO ==================
 INSERT INTO empresas (nombre, descripcion, logo_ruta, tipos_vehiculos, telefono, correo, direccion) VALUES
 ('Transportico SAS','Taxi y Aerovan urbano/aeropuerto','images/Transportico.png','Taxi,Aerovan','(604) 555 1010','contacto@transportico.com','Local 12, Módulo A — Terminal'),
 ('Trans Vanegas','Intermunicipal: Gacela y buses','images/Trans vanegas.png','Bus 2 pisos','(604) 555 2020','info@losvanegas.co','Local 5, Módulo B — Terminal'),
@@ -110,7 +109,7 @@ INSERT INTO empresas (nombre, descripcion, logo_ruta, tipos_vehiculos, telefono,
 ('Trans Volver','Urbano/intermunicipal: bus, aerovan, taxi','images/Trans volver .png','Bus,Aerovan,Taxi','(604) 555 4040','reservas@transvolver.co','Local 2, Módulo A — Terminal'),
 ('Servi Rutas Ltda.','Metropolitano/empresarial: bus, taxi y busetas','images/Servirutasltda.png','Bus,Taxi,Busetas','(604) 555 5050','comercial@Servirutasltda.com','Local 9, Módulo B — Terminal');
 
--- Rutas (mapeadas a tus ejemplos)
+-- Rutas 
 INSERT INTO rutas (empresa_id, tipo_vehiculo, origen, destino, horario, costo)
 SELECT id,'TAXI','Marinilla','Medellín','04:00 am',100000 FROM empresas WHERE nombre='Transportico SAS';
 INSERT INTO rutas (empresa_id, tipo_vehiculo, origen, destino, horario, costo)

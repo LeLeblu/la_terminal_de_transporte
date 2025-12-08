@@ -1,3 +1,10 @@
+/* 
+    - Fácil de usar en móviles.
+
+  mejora la experiencia de usuario, algo que los buscadores tienen en cuenta
+  como señal indirecta en la compatibilidad móvil).
+*/
+
 /* ===== Variables (colores) ===== */
 :root {
   --bg: #f7f7f2;
@@ -94,7 +101,7 @@ body {
   padding: 0;
 }
 
-/* Tus estilos de los enlaces (los dejamos igual) */
+/* estilos de los enlaces */
 .menu a {
   display: inline-block;
   padding: 8px 12px;
@@ -130,7 +137,7 @@ main {
   padding-top: 20px;
 }
 
-/* ===== Formularios (básico) ===== */
+/* ===== Formularios ===== */
 form label {
   display: block;
   margin-top: 12px;
@@ -465,7 +472,7 @@ form button:hover {
   text-align: center;
   border-radius: 6px;
   border: 1px solid #a5d6a7;
-  background: #eaf7e6; /* VERDE claro: libre */
+  background: #eaf7e6;
   color: #2e7d32;
   cursor: pointer;
   user-select: none;
@@ -552,7 +559,8 @@ form button:hover {
 }
 
 .buy-msg{
-  background-color: 75a6a948;
+  /* corregido: faltaba el # en el color */
+  background-color: #75a6a948;
 }
 
 .buy-form {

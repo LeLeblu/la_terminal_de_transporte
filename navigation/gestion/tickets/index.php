@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . "/../../../dataBase/conexion.php";
 
-/* Insertar rápido (opcional desde esta pantalla) */
+/* Insertar rápido  */
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $empresa_id = intval($_POST["empresa_id"] ?? 0);
   $tipo = trim($_POST["tipo_vehiculo"] ?? "TAXI");

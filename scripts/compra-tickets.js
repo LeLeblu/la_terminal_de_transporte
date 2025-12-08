@@ -2,7 +2,6 @@
 (() => {
   "use strict";
 
-  // Utilidades básicas para mostrar resumen
   const money = n => "$" + (Math.round(n) || 0).toLocaleString("es-CO");
   const formatISOtoDMY = iso => {
     if (!iso) return "—";
@@ -13,7 +12,6 @@
     { TAXI: "Taxi", AEROVAN: "Aerovan", BUS_1PISO: "Bus (1 piso)", BUS_2PISOS: "Bus (2 pisos)" }[t] || t
   );
 
-  // 1) Leer parámetros de la URL
   const q = new URLSearchParams(window.location.search);
   const data = {
     empresa: q.get("empresa") || "",
@@ -28,7 +26,6 @@
   };
   if (!data.total) data.total = data.costo * Math.max(1, data.sillas.length);
 
-  // 2) Pintar el resumen en la UI (si existen esos elementos)
   const $ = sel => document.querySelector(sel);
   const setText = (sel, txt) => { const el = $(sel); if (el) el.textContent = txt; };
 
@@ -41,11 +38,10 @@
   setText("#ts-costo",    money(data.costo || 0));
   setText("#ts-total",    money(data.total || 0));
 
-  // 3) Pasar el payload completo al hidden que consume PHP
   const hidden = document.getElementById("bf-data");
   if (hidden) hidden.value = JSON.stringify(data);
 
-  // 4) Envío del formulario (SIN preventDefault). Solo evitamos doble clic.
+  // Envío del formulario  
   const form = document.getElementById("buy-form");
   if (form) {
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -54,7 +50,7 @@
         submitBtn.disabled = true;
         submitBtn.textContent = "Procesando...";
       }
-      // importante: no usamos preventDefault; el form se va al PHP (crear-ticket.php)
+      
     });
   }
 })();

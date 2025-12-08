@@ -3,7 +3,7 @@ require __DIR__ . "/asientos.php"; // incluye conexion + helpers
 
 ini_set('display_errors', 1); error_reporting(E_ALL);
 
-// 1) Datos del pasajero
+// Datos del pasajero
 $nombre   = trim($_POST["bf-nombre"] ?? "");
 $doc      = trim($_POST["bf-doc"] ?? "");
 $email    = trim($_POST["bf-email"] ?? "");
@@ -11,7 +11,7 @@ $tel      = trim($_POST["bf-tel"] ?? "");
 $pago     = trim($_POST["bf-pago"] ?? "Sin definir");
 $contacto = $tel ?: $email;
 
-// 2) Datos del viaje (desde hidden JSON)
+// Datos del viaje 
 $raw  = $_POST["bf_data"] ?? "";
 $bf   = (is_string($raw) && $raw !== "") ? json_decode($raw, true) : [];
 if (!is_array($bf)) $bf = [];
@@ -23,7 +23,7 @@ $destino       = $bf["destino"]  ?? "";
 $fecha         = $bf["fecha"]    ?? date("Y-m-d");
 $horario       = $bf["horario"]  ?? "";
 
-// --- Normalizar sillas (puede venir como string "1,2" o como array ["1","2"]) ---
+
 $sillasInput = $bf["sillas"] ?? [];
 if (is_string($sillasInput)) {
   $sillas = array_values(array_filter(array_map('trim', explode(',', $sillasInput))));
@@ -39,7 +39,7 @@ if ($total <= 0) $total = $costoUnit * max(1, count($sillas));
 $cantidad  = max(1, count($sillas));
 $sillasStr = implode(",", $sillas);
 
-// 3) Resolver empresa y ruta
+
 $empresa_id = null; $ruta_id = null; $tipoRuta = null;
 
 $st = $cn->prepare("SELECT id FROM empresas WHERE nombre=? LIMIT 1");
@@ -63,7 +63,7 @@ if (!$err) {
   }
 }
 
-// 4) Inicializar y ocupar asientos
+// Inicializar y ocupar asientos
 $ok = false; $insert_id = 0;
 
 if (!$err) {
@@ -77,7 +77,7 @@ if (!$err) {
   if (!$okAsientos) {
     $err = "Alguna de las sillas que seleccionaste ya fue ocupada. Actualiza y vuelve a intentar.";
   } else {
-    // 5) Insertar ticket (OJO: 14 placeholders)
+    // Insertar ticket 
     $stmt = $cn->prepare("INSERT INTO tickets
       (empresa_id, ruta_id, tipo_vehiculo, fecha, horario, origen, destino, sillas, cantidad, costo_unitario, total,
        cliente_nombre, cliente_cedula, cliente_contacto)
