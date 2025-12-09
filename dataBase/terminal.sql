@@ -111,7 +111,7 @@ INSERT INTO empresas (nombre, descripcion, logo_ruta, tipos_vehiculos, telefono,
 
 -- Rutas 
 INSERT INTO rutas (empresa_id, tipo_vehiculo, origen, destino, horario, costo)
-SELECT id,'TAXI','Marinilla','Medellín','04:00 am',100000 FROM empresas WHERE nombre='Transportico SAS';
+SELECT id,'TAXI','Marinilla','Medellín','04:00 am',10000 FROM empresas WHERE nombre='Transportico SAS';
 INSERT INTO rutas (empresa_id, tipo_vehiculo, origen, destino, horario, costo)
 SELECT id,'AEROVAN','Marinilla','Medellín','05:00 am',100000 FROM empresas WHERE nombre='Transportico SAS';
 INSERT INTO rutas (empresa_id, tipo_vehiculo, origen, destino, horario, costo)
