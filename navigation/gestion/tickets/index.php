@@ -68,7 +68,7 @@ $tickets = $cn->query("SELECT t.*, e.nombre AS empresa
   <header class="site-header">
     <div class="container header-bar">
       <a href="../../../index.html" class="brand">
-        <img src="../../../images/Logo.png" alt="Logo de la Terminal" class="logo" />
+        <img src="../../../images/logo.png" alt="Logo de la Terminal" class="logo" />
         <span class="site-title">La Terminal</span>
       </a>
       <nav class="site-nav" aria-label="Navegación principal">

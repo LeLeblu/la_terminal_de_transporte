@@ -102,10 +102,30 @@ if (!$err) {
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Resultado de compra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resultado de compra | La Terminal</title>
+  <meta name="description" content="Confirmación de compra de tiquetes en La Terminal de Transporte." />
   <link rel="stylesheet" href="../styles/styles.css" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="container header-bar">
+      <a href="../index.html" class="brand">
+        <img src="../images/logo.png" alt="Logo de la Terminal" class="logo" />
+        <span class="site-title">La Terminal</span>
+      </a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <ul class="menu">
+          <li><a href="../navigation/empresas/">Empresas</a></li>
+          <li><a href="../navigation/vehiculos/">Vehículos</a></li>
+          <li><a href="../navigation/rutas/">Rutas y Horarios</a></li>
+          <li><a href="../navigation/compra-tickets/">Compra de Tiquetes</a></li>
+          <li><a href="../navigation/gestion/tickets/">Gestión de Tiquetes</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <main class="container" style="padding:24px 0;">
     <section class="section">
       <?php if ($ok): ?>
@@ -122,5 +142,11 @@ if (!$err) {
       <?php endif; ?>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Terminal de Transporte. Todos los derechos reservados.</p>
+    </div>
+  </footer>
 </body>
 </html>

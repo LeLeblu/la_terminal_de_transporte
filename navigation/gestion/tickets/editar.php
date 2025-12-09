@@ -30,6 +30,24 @@ if (!$t) { die("Ticket no encontrado"); }
   <link rel="stylesheet" href="../../../styles/styles.css"/>
 </head>
 <body>
+  <header class="site-header">
+    <div class="container header-bar">
+      <a href="../../../index.html" class="brand">
+        <img src="../../../images/logo.png" alt="Logo de la Terminal" class="logo" />
+        <span class="site-title">La Terminal</span>
+      </a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <ul class="menu">
+          <li><a href="../../empresas/">Empresas</a></li>
+          <li><a href="../../vehiculos/">Vehículos</a></li>
+          <li><a href="../../rutas/">Rutas y Horarios</a></li>
+          <li><a href="../../compra-tickets/">Compra de Tiquetes</a></li>
+          <li><a href="../../gestion/tickets/" class="is-active" aria-current="page">Gestión de Tiquetes</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
 <main class="container" style="padding:24px 0;">
   <section class="section">
     <h2>Editar Ticket #<?php echo $id; ?></h2>
@@ -49,6 +67,12 @@ if (!$t) { die("Ticket no encontrado"); }
     <p><a class="menu-link" href="index.php">Volver</a></p>
   </section>
 </main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2025 Terminal de Transporte. Todos los derechos reservados.</p>
+  </div>
+</footer>
 </body>
 </html>
 
