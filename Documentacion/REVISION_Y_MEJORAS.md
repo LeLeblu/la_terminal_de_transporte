@@ -47,7 +47,6 @@ Se realizó una revisión completa del sitio web identificando y corrigiendo **1
 - **Ubicación:** `/navigation/rutas/index.html` vs `/scripts/cotizaciones.js`
 - **Problema:** Los precios mostrados en la tabla de rutas no coincidían con los datos del sistema de cotizaciones
 - **Ejemplos de inconsistencias:**
-  - Marinilla → Medellín: Mostraba $10.000, debía ser $100.000
   - Marinilla → Cali: Mostraba $170.000, debía ser $140.000
   - Marinilla → Bogotá: Mostraba $170.000, debía ser $100.000
   - Barranquilla → Marinilla: Mostraba $140.000, debía ser $200.000
@@ -311,7 +310,6 @@ Se realizó una revisión completa del sitio web identificando y corrigiendo **1
 
 | Ruta | Precio Anterior | Precio Correcto | Estado |
 |------|----------------|-----------------|--------|
-| Marinilla → Medellín | $10.000 | $100.000 | ✅ Corregido |
 | Marinilla → Cali | $170.000 | $140.000 | ✅ Corregido |
 | Marinilla → Bogotá | $170.000 | $100.000 | ✅ Corregido |
 | Barranquilla → Marinilla | $140.000 | $200.000 | ✅ Corregido |
